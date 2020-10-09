@@ -1,0 +1,7 @@
+rootProject.name = 'utils'
+include 'common'
+include 'utils-kafka'
+include 'utils-db'
+include 'utils-log-logback'
+include 'code-generator'
+

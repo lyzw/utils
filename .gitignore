@@ -1,0 +1,8 @@
+.gradle/
+.idea/
+gradle/
+utils-db/build/
+utils-kafka/build/
+utils-log-logback/build/
+common/build/
+code-generator/build/

@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'maven'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'me.sapling'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compileOnly group:'org.projectlombok', name: 'lombok', version: version_lombok
+    annotationProcessor group:'org.projectlombok', name: 'lombok', version: version_lombok
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'javax.servlet', name: 'javax.servlet-api',version :'3.1.0'
+    compile group: 'redis.clients', name: 'jedis', version: version_jedis
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: version_httpclient
+    compile group: 'com.alibaba', name: 'fastjson', version: version_fastjson
+
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.version =  project.version
+        pom.artifactId = 'common'
+        pom.groupId = project.group
+    }
+}

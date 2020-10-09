@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+}
+
+group 'me.sapling'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+ext {
+    version_jedis = "2.9.0"
+    version_httpclient = '4.5.5'
+    version_fastjson = '1.2.68'
+    version_lombok = '1.18.10'
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    apply plugin: 'maven'
+    apply plugin: 'java-gradle-plugin'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        compileOnly group:'org.projectlombok', name: 'lombok', version: version_lombok
+        annotationProcessor group:'org.projectlombok', name: 'lombok', version: version_lombok
+        compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    }
+
+    jacoco {
+        toolVersion = "0.8.1"
+        reportsDir = file("$buildDir/reports/jacoco")
+    }
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            csv.enabled true
+            html.destination file("${buildDir}/jacocoHtml")
+        }
+    }
+}
