@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
  * @date 2018/6/7
  * @since v1.0
  */
-@Data
 public class BaseRequest<T> extends BaseEntity {
 
     private static final Long serialVersionUID = 1L;
@@ -21,4 +20,27 @@ public class BaseRequest<T> extends BaseEntity {
 
     private T data;
 
+    public Long getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(Long requestTime) {
+        this.requestTime = requestTime;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

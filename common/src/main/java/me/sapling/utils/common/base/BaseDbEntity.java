@@ -12,7 +12,6 @@ import java.util.Date;
  * @date 2019/11/12
  * @since 1.0
  */
-@Data
 public class BaseDbEntity extends BaseEntity{
 
     /**
@@ -35,4 +34,36 @@ public class BaseDbEntity extends BaseEntity{
      */
     private String modifiedUser;
 
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public Date getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(Date modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getModifiedUser() {
+        return modifiedUser;
+    }
+
+    public void setModifiedUser(String modifiedUser) {
+        this.modifiedUser = modifiedUser;
+    }
 }

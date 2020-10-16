@@ -22,7 +22,7 @@ public class MapUtil {
      * @param object 对象数据
      * @return 对象数据的map
      */
-    public static Map objectToMap(Object object) {
+    public static Map<String, Object> objectToMap(Object object) {
         return ReflectUtil.getFieldValueMap(object);
     }
 
@@ -35,7 +35,7 @@ public class MapUtil {
      * @param includeGetMethod 包含get方法
      * @return 对象数据的map
      */
-    public static Map objectToMap(Object object, boolean includeGetMethod) {
+    public static Map<String, Object> objectToMap(Object object, boolean includeGetMethod) {
         return ReflectUtil.getFieldValueMap(object);
     }
 

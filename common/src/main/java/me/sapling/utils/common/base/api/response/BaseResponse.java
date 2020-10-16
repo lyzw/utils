@@ -9,7 +9,6 @@ import me.sapling.utils.common.base.BaseEntity;
  * @date 2018/6/7
  * @since v1.0
  */
-@Data
 public class BaseResponse<T> extends BaseEntity {
 
     private String retCode;
@@ -44,6 +43,54 @@ public class BaseResponse<T> extends BaseEntity {
         return builder(ResponseCode.SYSTEM_ERROR.getCode(), e.getMessage(), null, null, null);
     }
 
+
+    public String getRetCode() {
+        return retCode;
+    }
+
+    public void setRetCode(String retCode) {
+        this.retCode = retCode;
+    }
+
+    public String getRetMsg() {
+        return retMsg;
+    }
+
+    public void setRetMsg(String retMsg) {
+        this.retMsg = retMsg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public Long getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(Long responseTime) {
+        this.responseTime = responseTime;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public String getResponseId() {
+        return responseId;
+    }
+
+    public void setResponseId(String responseId) {
+        this.responseId = responseId;
+    }
 
     private static <T> BaseResponse<T> builder(String retCode, String retMsg, String requestId, String responseId, T data) {
         BaseResponse<T> baseResponse = new BaseResponse<>();

@@ -86,6 +86,23 @@ public class KafkaConsumerFactory {
         return props;
     }
 
+
+    public static <K, V> KafkaConsumer<K, V> createCustomerConsumer(String servers,
+                                                                    String groupId,
+                                                                    Boolean autoCommit,
+                                                                    String keyDeserializer,
+                                                                    String valueDeserializer,
+                                                                    Properties properties){
+        Properties props = defaultConsumerProperties();
+        props.putAll(properties);
+        props.put(PROP_BOOTSTRAP_SERVER, servers);
+        props.put(PROP_GROUP_ID, groupId);
+        props.put(PROP_ENABLE_AUTO_COMMIT, autoCommit);
+        props.put("key.deserializer", keyDeserializer);
+        props.put("value.deserializer", valueDeserializer);
+        return new KafkaConsumer<>(props);
+    }
+
     public static void main(String[] args) {
         KafkaConsumer<String,String> consummer = KafkaConsumerFactory.createDefaultStringConsumer(
                 "192.168.1.153:9092",
@@ -93,18 +110,18 @@ public class KafkaConsumerFactory {
         consummer.subscribe(Collections.singletonList("msservice-log-saas2"));
         int count =0;
         try {
-            while (true) {
+//            while (true) {
                 ConsumerRecords<String, String> records = consummer.poll(Duration.ofSeconds(1));
                 for (ConsumerRecord record : records) {
                     count++;
                     if (count % 1000 == 0) {
                         System.out.println(record.partition() + "---" + record.offset());
                     }
-                    if (record.toString().contains("dataproduct-framework-log")) {
+//                    if (record.toString().contains("dataproduct-framework-log")) {
                         System.out.println(record.value().toString());
-                    }
+//                    }
                 }
-            }
+//            }
         }catch (Exception e){
             consummer.close();
         }

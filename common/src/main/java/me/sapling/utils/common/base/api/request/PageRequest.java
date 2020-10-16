@@ -1,6 +1,7 @@
 package me.sapling.utils.common.base.api.request;
 
 import lombok.Data;
+import me.sapling.utils.common.base.api.response.PageInfo;
 
 /**
  * {description here}
@@ -15,4 +16,13 @@ public class PageRequest {
     private Integer page = 0;
 
     private Integer pageSize = 20;
+
+
+    public PageInfo convertToPageInfo(){
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setPageSize(this.getPageSize());
+        pageInfo.setCurrentPage(this.getPage());
+        return pageInfo;
+    }
+
 }

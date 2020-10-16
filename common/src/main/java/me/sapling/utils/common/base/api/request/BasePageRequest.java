@@ -10,8 +10,7 @@ import lombok.EqualsAndHashCode;
  * @date 2018/6/7
  * @since v1.0
  */
-@Data
-public class BasePageRequest extends BaseRequest {
+public class BasePageRequest<T> extends BaseRequest<T> {
 
     /**
      * page info see {@link PageRequest}
@@ -19,4 +18,11 @@ public class BasePageRequest extends BaseRequest {
     PageRequest page;
 
 
+    public PageRequest getPage() {
+        return page;
+    }
+
+    public void setPage(PageRequest page) {
+        this.page = page;
+    }
 }

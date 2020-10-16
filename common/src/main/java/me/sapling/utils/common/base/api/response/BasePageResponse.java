@@ -11,10 +11,15 @@ import java.util.List;
  * @date 2018/6/7
  * @since v1.0
  */
-@Data
 public class BasePageResponse<T> extends BaseResponse<List<T>> {
 
     private PageInfo page;
 
+    public PageInfo getPage() {
+        return page;
+    }
 
+    public void setPage(PageInfo page) {
+        this.page = page;
+    }
 }
