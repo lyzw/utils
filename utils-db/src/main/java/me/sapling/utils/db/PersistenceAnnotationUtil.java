@@ -21,49 +21,49 @@ import java.util.stream.Collectors;
  */
 public class PersistenceAnnotationUtil {
 
-    public static boolean isTableAnnotationPresent(Class<?> clazz){
+    public static boolean isTableAnnotationPresent(Class<?> clazz) {
         return clazz.isAnnotationPresent(Table.class);
     }
 
     public static String getColumnName(Class<?> clazz, String propertyName) throws NoSuchFieldException {
         Field field = clazz.getField(propertyName);
         String name = "";
-        if (field.isAnnotationPresent(Column.class)){
-            name =  field.getAnnotation(Column.class).name();
+        if (field.isAnnotationPresent(Column.class)) {
+            name = field.getAnnotation(Column.class).name();
         }
-        if (StringUtil.isEmpty(name)){
-            name =  field.getName();
+        if (StringUtil.isEmpty(name)) {
+            name = field.getName();
         }
         return name;
     }
 
-    public static List<String> getColumnNames(Class<?> clazz){
+    public static List<String> getColumnNames(Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
-        return Arrays.stream(fields).map(item-> {
-            if (item.isAnnotationPresent(Column.class)){
+        return Arrays.stream(fields).map(item -> {
+            if (item.isAnnotationPresent(Column.class)) {
                 return item.getAnnotation(Column.class).name();
             }
             return item.getName();
         }).collect(Collectors.toList());
     }
 
-    public static List<Tuple<String,String>> getColumnTuples(Class<?> clazz){
+    public static List<Tuple<String, String>> getColumnTuples(Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
-        return Arrays.stream(fields).map(item-> {
-            if (item.isAnnotationPresent(Column.class)){
-                return new Tuple<String,String>(item.getName(), item.getAnnotation(Column.class).name());
+        return Arrays.stream(fields).map(item -> {
+            if (item.isAnnotationPresent(Column.class)) {
+                return new Tuple<String, String>(item.getName(), item.getAnnotation(Column.class).name());
             }
-            return new Tuple<String,String>(item.getName(), item.getName());
+            return new Tuple<String, String>(item.getName(), item.getName());
         }).collect(Collectors.toList());
     }
 
-    public static Map<String,String> getColumnMap(Class<?> clazz){
+    public static Map<String, String> getColumnMap(Class<?> clazz) {
         Field[] fields = clazz.getDeclaredFields();
-        Map<String,String> data = new HashMap<>();
-        Arrays.stream(fields).forEach(item-> {
-            if (item.isAnnotationPresent(Column.class)){
+        Map<String, String> data = new HashMap<>();
+        Arrays.stream(fields).forEach(item -> {
+            if (item.isAnnotationPresent(Column.class)) {
                 data.put(item.getName(), item.getAnnotation(Column.class).name());
-            }else{
+            } else {
                 data.put(item.getName(), item.getName());
             }
         });

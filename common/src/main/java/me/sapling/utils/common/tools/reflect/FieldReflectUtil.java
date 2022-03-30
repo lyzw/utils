@@ -20,9 +20,10 @@ public class FieldReflectUtil {
     /**
      * 递归声明的属性（优先从子类中获取，子类中获取不到则从父类中获取）
      *
-     * @param fieldName
-     * @param object
-     * @return
+     * @param fieldName 属性名称
+     * @param object    类实例
+     * @return 类属性
+     * @throws NoSuchFieldException throw {@link NoSuchFieldException} when field is null or the the field is not belong to the target object
      */
     public static Field getDeclaredFieldWithRecursion(String fieldName, Object object) throws NoSuchFieldException {
         Class clazz = object.getClass();
@@ -32,10 +33,10 @@ public class FieldReflectUtil {
     /**
      * 获取属性
      *
-     * @param fieldName
-     * @param clazz
-     * @return
-     * @throws NoSuchFieldException
+     * @param fieldName 属性名称
+     * @param clazz     对象
+     * @return 类属性
+     * @throws NoSuchFieldException throw {@link NoSuchFieldException} when field is null or the the field is not belong to the target object
      */
     public static Field getDeclaredFieldWithRecursion(String fieldName, Class clazz) throws NoSuchFieldException {
         if (clazz == null || StringUtil.isEmpty(fieldName)) {
@@ -61,17 +62,25 @@ public class FieldReflectUtil {
      * @param fieldName 属性名
      * @param object    属性所在的对象
      * @return 属性的值
-     * @throws IllegalAccessException
-     * @throws NoSuchFieldException
+     * @throws NoSuchFieldException   throw {@link NoSuchFieldException} when field is null or the the field is not belong to the target object
+     * @throws IllegalAccessException throw {@link IllegalAccessException} when have no permission to the field
      */
-    public static Object getRecursionDeclaredFieldValue(String fieldName, Object object)
+    public static Object readRecursionDeclaredField(String fieldName, Object object)
             throws IllegalAccessException, NoSuchFieldException {
         Field field = getDeclaredFieldWithRecursion(fieldName, object);
-        return getFieldValue(field, object);
+        return readField(field, object);
     }
 
-    public static Object getFieldValue(Field field, Object object)
-            throws IllegalAccessException, NoSuchFieldException {
+    /**
+     * 获取属性的值
+     *
+     * @param field  类属性
+     * @param object 属性所在的对象
+     * @return 属性的值
+     * @throws NoSuchFieldException   throw {@link NoSuchFieldException} when field is null or the the field is not belong to the target object
+     * @throws IllegalAccessException throw {@link IllegalAccessException} when have no permission to the field
+     */
+    public static Object readField(Field field, Object object) throws IllegalAccessException, NoSuchFieldException {
         if (field == null) {
             throw new NoSuchFieldException();
         }
@@ -79,12 +88,12 @@ public class FieldReflectUtil {
         return field.get(object);
     }
 
-    public static void setRecursionDeclaredFieldValue(String fieldName, Object object, Object value) throws NoSuchFieldException, IllegalAccessException {
+    public static void setRecursionDeclaredField(String fieldName, Object object, Object value) throws NoSuchFieldException, IllegalAccessException {
         Field field = getDeclaredFieldWithRecursion(fieldName, object);
-        setFieldValue(field, object, value);
+        setField(field, object, value);
     }
 
-    public static void setFieldValue(Field field, Object object, Object value) throws NoSuchFieldException, IllegalAccessException {
+    public static void setField(Field field, Object object, Object value) throws NoSuchFieldException, IllegalAccessException {
         if (field == null) {
             throw new NoSuchFieldException();
         }
@@ -95,15 +104,15 @@ public class FieldReflectUtil {
     /**
      * set null field to default value
      *
-     * @param fieldName
-     * @param object
-     * @param defaultValue
-     * @throws NoSuchFieldException
-     * @throws IllegalAccessException
+     * @param fieldName    the filed name of the class
+     * @param object       the instance of class
+     * @param defaultValue the default value when getting null value from the filed
+     * @throws NoSuchFieldException   throw {@link NoSuchFieldException} when field is null or the the field is not belong to the target object
+     * @throws IllegalAccessException throw {@link IllegalAccessException} when have no permission to the field
      */
     public static void setNullRecursionDeclaredFieldToDefault(String fieldName, Object object, Object defaultValue) throws NoSuchFieldException, IllegalAccessException {
-        if (getRecursionDeclaredFieldValue(fieldName, object) == null) {
-            setRecursionDeclaredFieldValue(fieldName, object, defaultValue);
+        if (readRecursionDeclaredField(fieldName, object) == null) {
+            setRecursionDeclaredField(fieldName, object, defaultValue);
         }
     }
 
@@ -117,8 +126,8 @@ public class FieldReflectUtil {
      * @throws IllegalAccessException throw {@link IllegalAccessException} when have no permission to the field
      */
     public static void setNullFieldToDefault(Field field, Object object, Object defaultValue) throws NoSuchFieldException, IllegalAccessException {
-        if (getFieldValue(field, object) == null) {
-            setFieldValue(field, object, defaultValue);
+        if (readField(field, object) == null) {
+            setField(field, object, defaultValue);
         }
     }
 
@@ -129,7 +138,7 @@ public class FieldReflectUtil {
      * @return declared field set
      */
     public static Set<Field> getDeclaredFieldsRecursion(Object object) {
-        Set<Field> result = new HashSet();
+        Set<Field> result = new HashSet<>();
         if (object == null || object.getClass().equals(Object.class)) {
             return result;
         }
@@ -142,12 +151,12 @@ public class FieldReflectUtil {
     }
 
     public static Set<Field> getSubClassDeclaredFieldsRecursion(Class clazz) {
-        Set<Field> result = new HashSet();
+        Set<Field> result = new HashSet<>();
         if (clazz == null || clazz.equals(Object.class)) {
             return result;
         } else {
             Class subClazz = clazz.getSuperclass();
-            if (subClazz.equals(Object.class)){
+            if (subClazz.equals(Object.class)) {
                 return result;
             }
             Field[] fields = subClazz.getDeclaredFields();
@@ -185,9 +194,7 @@ public class FieldReflectUtil {
                 if (defaultValue.getClass() == fieldType) {
                     try {
                         setNullFieldToDefault(field, object, defaultValue);
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                    } catch (NoSuchFieldException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }

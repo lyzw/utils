@@ -20,13 +20,14 @@ public class ResultSetUtil {
      *
      * @param resultSet the set of query
      * @return List of column names
-     * @throws SQLException  if a database access error occurs
+     * @throws SQLException if a database access error occurs
      */
     public static List<String> getColumnNames(ResultSet resultSet) throws SQLException {
         ResultSetMetaData metaData = resultSet.getMetaData();
         List<String> names = new ArrayList<>();
         for (int index = 1; index <= metaData.getColumnCount(); index++) {
-            names.add(metaData.getColumnName(index));
+            // use column label for column name or alias
+            names.add(metaData.getColumnLabel(index));
         }
         return names;
     }

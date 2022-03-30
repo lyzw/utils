@@ -1,5 +1,7 @@
 package me.sapling.utils.common.tools.collection;
 
+import org.apache.commons.collections4.CollectionUtils;
+
 import java.util.List;
 
 /**
@@ -29,5 +31,11 @@ public class ListUtil {
             }
         }
         return flag;
+    }
+
+    public static <T> T[] covertToArray(List<T> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
     }
 }

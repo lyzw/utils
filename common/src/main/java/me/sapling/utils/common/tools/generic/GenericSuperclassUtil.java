@@ -19,8 +19,12 @@ public class GenericSuperclassUtil {
      * 获取泛型类Class对象，不是泛型类则返回null
      */
     public static Class<?> getActualTypeArgument(Class<?> clazz) {
+        if (clazz.equals(List.class)) {
+            Type genericSuperclass = clazz.getGenericSuperclass();
+        }
         Class<?> entitiClass = null;
         Type genericSuperclass = clazz.getGenericSuperclass();
+        System.out.println(genericSuperclass);
         if (genericSuperclass instanceof ParameterizedType) {
             Type[] actualTypeArguments = ((ParameterizedType) genericSuperclass)
                     .getActualTypeArguments();

@@ -28,16 +28,16 @@ public interface FormatInterface {
         fields.forEach(field -> {
             try {
                 if (Number.class.isAssignableFrom(field.getType())) {
-                    String value = FieldReflectUtil.getFieldValue(field, this).toString();
+                    String value = FieldReflectUtil.readField(field, this).toString();
                     sb.append(FieldFormatHelper.appendFieldName(field))
                             .append(value);
                 } else if (FormatInterface.class.isAssignableFrom(field.getType())) {
-                    Object fieldValue = FieldReflectUtil.getFieldValue(field, this);
+                    Object fieldValue = FieldReflectUtil.readField(field, this);
                     String value = (String) MethodReflectUtil.invokeMethod("toJsonString", fieldValue);
                     sb.append(FieldFormatHelper.appendFieldName(field))
                             .append(value);
                 } else if (field.getType().equals(String.class)) {
-                    String value = FieldReflectUtil.getFieldValue(field, this).toString();
+                    String value = FieldReflectUtil.readField(field, this).toString();
                     sb.append(FieldFormatHelper.appendFieldName(field))
                             .append(FieldFormatHelper.DOUBLE_QUOTATION_MARK)
                             .append(value)
@@ -45,9 +45,7 @@ public interface FormatInterface {
                 } else if (Map.class.isAssignableFrom(field.getType())){
 
                 }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException | NoSuchMethodException | InvocationTargetException e) {
+            } catch (IllegalAccessException | NoSuchFieldException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         });
