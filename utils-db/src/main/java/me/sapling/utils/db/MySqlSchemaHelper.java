@@ -39,10 +39,10 @@ public class MySqlSchemaHelper {
                     ColumnSchema columnSchema = new ColumnSchema();
                     columnSchema.setColumnName(Objects.isNull(rs.getString(FILED_FIELD))  ? null : String.valueOf(rs.getString(FILED_FIELD)).toLowerCase());
                     columnSchema.setDefaultValue(Objects.isNull(rs.getString(FILED_DEFAULT)) ? null : String.valueOf(rs.getString(FILED_DEFAULT)));
-                    columnSchema.setNullable(Objects.isNull(rs.getString(FILED_NULL)) ? null : String.valueOf(rs.getString(FILED_NULL)));
+                    columnSchema.setNullable("YES".equals(rs.getString(FILED_NULL)));
                     columnSchema.setKey(Objects.isNull(rs.getString(FILED_KEY)) ? null : String.valueOf(rs.getString(FILED_KEY)));
                     columnSchema.setDataType(Objects.isNull(rs.getString(FILED_TYPE)) ? null : String.valueOf(rs.getString(FILED_TYPE)));
-                    columnSchema.setDescription(Objects.isNull(rs.getString(FILED_EXTRA)) ? null : String.valueOf(rs.getString(FILED_EXTRA)));
+                    columnSchema.setComment(Objects.isNull(rs.getString(FILED_EXTRA)) ? null : String.valueOf(rs.getString(FILED_EXTRA)));
                     columnSchemas.add(columnSchema);
                 }
             }
@@ -53,16 +53,12 @@ public class MySqlSchemaHelper {
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Connection source = ConnectionUtil.connect("jdbc:mysql://10.30.4.122:3306/qfcc_wchat_dev",
-                "root",
-                "wAR8ruO5CQ",
+        Connection source = ConnectionUtil.connect("jdbc:mysql://rm-uf6466t95230jn7i47o.mysql.rds.aliyuncs.com/tms_uat",
+                "ty_test",
+                "ty_test_1231",
                 "com.mysql.cj.jdbc.Driver", null);
-        String sourceTableName = "wchat_statistics";
-        String targetTableName = "cc_wchat_statistics";
-        Connection target = ConnectionUtil.connect("jdbc:mysql://10.30.0.93:3306/qf_dataproduct_ods_test",
-                "user_mysql_adb",
-                "w!jckelNW&4NsQ!^",
-                "com.mysql.cj.jdbc.Driver", null);
+        String sourceTableName = "tms_report_store_day_knot_type";
+
         System.out.println(getTableSchema(source, sourceTableName));
 
     }

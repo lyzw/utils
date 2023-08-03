@@ -1,8 +1,10 @@
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/MySqlSchemaHelper.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/ResultSetConverterUtil.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/ConnectionUtil.java
+/Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/sqlgenerator/MySqlBatchReplaceSqlGenerator.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/ResultSetUtil.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/DbValueUtil.java
+/Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/spl/MultiTableQuery.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/DbQueryUtil.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/bean/ColumnSchema.java
 /Users/zhouwei/utils/utils-db/src/main/java/me/sapling/utils/db/ConverterFunction.java

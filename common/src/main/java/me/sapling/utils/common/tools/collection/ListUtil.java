@@ -33,9 +33,4 @@ public class ListUtil {
         return flag;
     }
 
-    public static <T> T[] covertToArray(List<T> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-    }
 }

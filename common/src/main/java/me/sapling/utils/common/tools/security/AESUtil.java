@@ -345,4 +345,20 @@ public class AESUtil {
         System.out.println(new String(result));
 
     }
+
+    public static enum EncodeType {
+        ECB_CIPHER_ALGORITHM("AES/ECB/PKCS5Padding"),
+
+        CBC_CIPHER_ALGORITHM("AES/CBC/PKCS5Padding");
+
+        private String code;
+
+        EncodeType(String code) {
+            this.code = code;
+        }
+
+        public String getCode() {
+            return code;
+        }
+    }
 }

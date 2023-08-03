@@ -14,7 +14,7 @@ public class ColumnSchema {
 
     String tableName;
 
-    String  columnName;
+    String columnName;
 
     String key;
 
@@ -30,9 +30,9 @@ public class ColumnSchema {
 
     int position;
 
-    String nullable;
+    boolean nullable;
 
-    String description;
+    String comment;
 
     String defaultValue;
 }
